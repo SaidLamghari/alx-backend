@@ -41,7 +41,7 @@ class Server:
         # Initialisation du dataset
         # en tant qu'attribut privé
         self.__dataset = None
-    
+
     def dataset(self) -> List[List]:
         """Retourne le dataset en cache.
 
@@ -62,11 +62,11 @@ class Server:
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """
         Retourne une page du dataset.
-        
+
         Paramètres :
         - page (int) : Le numéro de page actuel (indexé à partir de 1).
         - page_size (int) : Le nombre d'éléments par page.
-        
+
         Retourne :
         - List[List] : Une liste de lignes
             correspondant à la page et page_size donnés.
@@ -92,11 +92,11 @@ class Server:
     def get_hyper(self, page: int = 1, page_size: int = 10) -> Dict[str, Any]:
         """
         Retourne un dictionnaire contenant les métadonnées de pagination.
-        
+
         Paramètres :
         - page (int) : Le numéro de page actuel (indexé à partir de 1).
         - page_size (int) : Le nombre d'éléments par page.
-        
+
         Retourne :
         - Dict[str, Any] : Un dictionnaire
             contenant les métadonnées de pagination.
