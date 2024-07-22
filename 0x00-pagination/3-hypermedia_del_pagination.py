@@ -1,33 +1,33 @@
 #!/usr/bin/env python3
 """
-Deletion-resilient hypermedia pagination
+Pagination hypermédia résiliente à la suppression
+Auteur SAID LAMGHARI
 """
 
 import csv
-import math
 from typing import List, Dict, Any
 
 
 class Server:
-    """Server class to paginate a database of popular baby names.
-    """
+    """Classe Server pour paginer une base de
+    données de prénoms de bébés populaires."""
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
-        self.__dataset = None
-        self.__indexed_dataset = None
+        self.__dataset = None  # Dataset non traité
+        self.__indexed_dataset = None  # Dataset indexé
 
     def dataset(self) -> List[List]:
-        """Cached dataset"""
+        """Dataset mis en cache."""
         if self.__dataset is None:
             with open(self.DATA_FILE) as f:
                 reader = csv.reader(f)
                 dataset = [row for row in reader]
-            self.__dataset = dataset[1:]
+            self.__dataset = dataset[1:]  # Ignorer l'en-tête
         return self.__dataset
 
     def indexed_dataset(self) -> Dict[int, List]:
-        """Dataset indexed by sorting position, starting at 0"""
+        """Dataset indexé par position de tri, en commençant à 0."""
         if self.__indexed_dataset is None:
             dataset = self.dataset()
             self.__indexed_dataset = {
@@ -35,18 +35,22 @@ class Server:
             }
         return self.__indexed_dataset
 
-    def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict[str, Any]:
+    def get_hyper_index(self, index: int = None, 
+                        page_size: int = 10) -> Dict[str, Any]:
         """
-        Returns a dictionary with pagination information starting from a given index.
+        Retourne un dictionnaire avec des
+        informations de pagination à partir d'un index donné.
         
-        Parameters:
-        - index (int): The current start index of the return page.
-        - page_size (int): The number of items per page.
+        Paramètres :
+        - index (int) : L'indice de départ actuel de la page retournée.
+        - page_size (int) : Le nombre d'éléments par page.
         
-        Returns:
-        - Dict[str, Any]: A dictionary containing pagination metadata.
+        Retourne :
+        - Dict[str, Any] : Un dictionnaire
+        contenant les métadonnées de pagination.
         """
-        assert isinstance(index, int) and 0 <= index < len(self.__indexed_dataset), "Index out of range"
+        assert isinstance(index, int) and 0 <= index < len(
+            self.__indexed_dataset), "Index hors de portée"
 
         indexed_data = self.indexed_dataset()
         data = []
