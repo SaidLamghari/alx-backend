@@ -33,8 +33,7 @@ class Server:
             }
         return self.__indexed_dataset
 
-    def get_hyper_index(self, index: int = None, 
-                        page_size: int = 10) -> Dict[str, Any]:
+    def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
         """
         Returns a dictionary with pagination information starting 
         from a given index.
@@ -46,8 +45,8 @@ class Server:
         Returns:
         - Dict[str, Any]: A dictionary containing pagination metadata.
         """
-        assert isinstance(index, int) and 0 <= index < len(
-            self.__indexed_dataset), "Index out of range"
+        assert isinstance(index, int) and index >= 0 and index < len(
+            self.__indexed_dataset)
 
         indexed_data = self.indexed_dataset()
         data = []
