@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 Classe Server qui pagine une base de données de noms de bébés populaires.
+Auteur SAID LAMGHARI
 """
 import csv
 from typing import List, Tuple
@@ -8,25 +9,27 @@ from typing import List, Tuple
 
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
     """
-    Prend deux arguments entiers et retourne un tuple de taille deux
+    Prend_indx deux arguments entiers et retourne un tuple de taille deux
     contenant l'indice de début et l'indice de fin correspondant à la plage
     d'indices à retourner dans une liste pour ces paramètres de pagination.
-    
+
     Args:
         page (int): Numéro de page à retourner (les pages commencent à 1).
         page_size (int): Nombre d'éléments par page.
-        
+
     Returns:
-        Tuple[int, int]: Un tuple contenant l'indice de début et l'indice de fin.
+        Tuple[int, int]: Un tuple contenant
+        l'indice de début et l'indice de fin.
     """
-    start = (page - 1) * page_size
-    end = page * page_size
-    return (start, end)
+    strt_indx = (page - 1) * page_size
+    end_indx = page * page_size
+    return (strt_indx, end_indx)
 
 
 class Server:
-    """Classe Server pour paginer une base de données de noms de bébés populaires."""
-    
+    """Classe Server pour paginer une base de
+    données de noms de bébés populaires."""
+
     DATA_FILE = "Popular_Baby_Names.csv"
 
     def __init__(self):
@@ -35,7 +38,7 @@ class Server:
     def dataset(self) -> List[List]:
         """
         Jeu de données en cache.
-        
+
         Returns:
             List[List]: Le jeu de données sous forme de liste de listes.
         """
@@ -48,21 +51,26 @@ class Server:
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """
-        Prend deux arguments entiers et retourne la page demandée du jeu de données.
-        
+        Prend_indx deux arguments entiers et retourne
+        la page demandée du jeu de données.
+
         Args:
             page (int): Numéro de la page demandée (par défaut: 1).
-            page_size (int): Nombre d'enregistrements par page (par défaut: 10).
-        
+            page_size (int): Nombre d'enregistrements
+                par page (par défaut: 10).
+
         Returns:
-            List[List]: Liste de listes contenant les données requises du jeu de données.
+            List[List]: Liste de listes contenant
+            les données requises du jeu de données.
         """
-        assert isinstance(page, int) and page > 0, "Le numéro de page doit être un entier positif."
-        assert isinstance(page_size, int) and page_size > 0, "La taille de page doit être un entier positif."
+        "Le numéro de page doit être un entier positif."
+        assert isinstance(page, int) and page > 0, "Le numéro positif."
+        "La taille de page doit être un entier positif."
+        assert isinstance(page_size, int) and page_size > 0, "taille positif"
 
         dataset = self.dataset()
         try:
-            start, end = index_range(page, page_size)
-            return dataset[start:end]
+            strt_indx, end_indx = index_range(page, page_size)
+            return dataset[strt_indx:end_indx]
         except IndexError:
             return []
