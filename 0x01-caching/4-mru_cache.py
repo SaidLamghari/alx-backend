@@ -1,22 +1,27 @@
 #!/usr/bin/env python3
 """ Module MRUCache
 
-Ce module définit la classe MRUCache, qui implémente un système de cache MRU (Most Recently Used).
+Ce module définit la classe MRUCache, qui implémente
+un système de cache MRU (Most Recently Used).
+Auteur SAID LAMGHARI
 """
-
-from base_caching import BaseCaching  # Importe la classe BaseCaching depuis base_caching.py
+# Importe la classe BaseCaching depuis base_caching.py
+from base_caching import BaseCaching
 
 
 class MRUCache(BaseCaching):
     """ Classe MRUCache
 
-    Hérite de BaseCaching et implémente un système de cache MRU (Most Recently Used).
+    Hérite de BaseCaching et implémente
+    un système de cache MRU (Most Recently Used).
     """
 
     def __init__(self):
         """ Initialise le cache """
-        super().__init__()  # Appelle le constructeur __init__ de la classe parent BaseCaching
-        self.order = []  # Initialise une liste pour suivre l'ordre des clés utilisées
+        # Appelle le constructeur __init__ de la classe parent BaseCaching
+        super().__init__()
+        # Initialise une liste pour suivre l'ordre des clés utilisées
+        self.order = []
 
     def put(self, key, item):
         """ Ajoute un élément dans le cache
@@ -30,14 +35,17 @@ class MRUCache(BaseCaching):
         """
         if key is None or item is None:
             return  # Si key ou item est None, la méthode ne fait rien
-        
+
         if key in self.cache_data:
             self.order.remove(key)  # Retire la clé de l'ordre actuel
         elif len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-            mru_key = self.order.pop()  # Retire la clé la plus récemment utilisée (MRU)
-            del self.cache_data[mru_key]  # Supprime l'élément associé à la clé MRU du cache
-            print("DISCARD: {}".format(mru_key))  # Affiche la clé MRU supprimée avec un message DISCARD
-        
+            # Retire la clé la plus récemment utilisée (MRU)
+            mr_ky = self.order.pop()
+            # Supprime l'élément associé à la clé MRU du cache
+            del self.cache_data[mr_ky]
+            # Affiche la clé MRU supprimée avec un message DISCARD
+            print("DISCARD: {}".format(mr_ky))
+
         self.cache_data[key] = item  # Ajoute le nouvel élément au cache
         self.order.append(key)  # Ajoute la clé à la fin de l'ordre
 
@@ -52,7 +60,9 @@ class MRUCache(BaseCaching):
         """
         if key in self.cache_data:
             self.order.remove(key)  # Retire la clé de l'ordre actuel
-            self.order.append(key)  # Ajoute la clé à la fin de l'ordre pour indiquer qu'elle a été utilisée récemment
+            # Ajoute la clé à la fin de l'ordre pour
+            # indiquer qu'elle a été utilisée récemment
+            self.order.append(key)
             return self.cache_data[key]  # Retourne l'élément associé à la clé
-        
+
         return None  # Retourne None si la clé n'est pas trouvée dans le cache
