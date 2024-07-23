@@ -1,51 +1,68 @@
 #!/usr/bin/env python3
-""" LRUCache module """
+""" Module LRUCache
 
+Ce module définit la classe LRUCache, qui implémente
+un système de cache LRU (Least Recently Used).
+Auteur SAID LAMGHARI
+"""
+# Importe la classe BaseCaching depuis base_caching.py
 from base_caching import BaseCaching
 
 
 class LRUCache(BaseCaching):
-    """ LRUCache inherits from BaseCaching and implements an LRU caching system """
+    """ Classe LRUCache
+
+    Hérite de BaseCaching et implémente un
+    système de cache LRU (Least Recently Used).
+    """
 
     def __init__(self):
-        """ Initialize the cache """
+        """ Initialise le cache """
+        # Appelle le constructeur __init__ de la classe parent BaseCaching
         super().__init__()
-        self.order = []  # Keep track of the order of keys
+        # Initialise une liste pour suivre l'ordre des clés utilisées
+        self.order = []
 
     def put(self, key, item):
-        """ Add an item in the cache
+        """ Ajoute un élément dans le cache
 
-        If the cache exceeds the MAX_ITEMS limit,
-        the least recently used item is discarded.
+        Si le cache dépasse la limite de MAX_ITEMS,
+        l'élément le moins récemment utilisé est supprimé.
 
         Args:
-            key (str): The key under which the item should be stored.
-            item (Any): The item to store in the cache.
+            key (str): La clé sous laquelle l'élément doit être stocké.
+            item (any): L'élément à stocker dans le cache.
         """
         if key is None or item is None:
-            return
+            return  # Si key ou item est None, la méthode ne fait rien
 
         if key in self.cache_data:
-            self.order.remove(key)
+            self.order.remove(key)  # Retire la clé de l'ordre actuel
         elif len(self.cache_data) >= BaseCaching.MAX_ITEMS:
-            lru_key = self.order.pop(0)
-            del self.cache_data[lru_key]
-            print("DISCARD: {}".format(lru_key))
+            # Retire la clé la moins récemment utilisée (LRU)
+            lru_ky = self.order.pop(0)
+            # Supprime l'élément associé à la clé LRU du cache
+            del self.cache_data[lru_ky]
+            # Affiche la clé LRU supprimée avec un message DISCARD
+            print("DISCARD: {}".format(lru_ky))
 
-        self.cache_data[key] = item
-        self.order.append(key)
+        self.cache_data[key] = item  # Ajoute le nouvel élément au cache
+        self.order.append(key)  # Ajoute la clé à la fin de l'ordre
 
     def get(self, key):
-        """ Get an item by key
+        """ Récupère un élément du cache par sa clé
 
         Args:
-            key (str): The key to look up in the cache.
+            key (str): La clé à rechercher dans le cache.
 
         Returns:
-            The value associated with the key, or None if the key does not exist.
+            any: La valeur associée à la clé, ou None si la clé n'existe pas.
         """
         if key in self.cache_data:
-            self.order.remove(key)
+            self.order.remove(key)  # Retire la clé de l'ordre actuel
+            # Ajoute la clé à la fin de l'ordre pour
+            # indiquer qu'elle a été utilisée récemment
             self.order.append(key)
-            return self.cache_data[key]
-        return None
+            return self.cache_data[key]  # Retourne l'élément associé à la clé
+
+        return None  # Retourne None si la clé n'est pas trouvée dans le cache
