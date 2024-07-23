@@ -3,6 +3,7 @@
 
 Ce module définit la classe LIFOCache, qui représente un
 système de cache utilisant l'algorithme LIFO (Last-In-First-Out).
+Auteur SAID LAMGHARI
 """
 # Importe la classe BaseCaching depuis base_caching.py
 from base_caching import BaseCaching
