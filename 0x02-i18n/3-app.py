@@ -43,8 +43,10 @@ babel = Babel(app)
 
 
 @babel.localeselector
-def get_locale():
+def get_locale() -> str:
     """
+    def get_locale():
+
     Détermine la meilleure langue à utiliser
     en fonction des préférences du client.
 
@@ -57,9 +59,12 @@ def get_locale():
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
-@app.route('/')
-def index():
+@app.route('/', strict_slashes=False)
+def index() -> str:
     """
+    @app.route('/')
+    def index():
+    
     Rend la page d'accueil.
 
     Retourne:
@@ -77,4 +82,4 @@ if __name__ == "__main__":
     # l'adresse IP 0.0.0.0 et le port 5000
     # L'application sera accessible depuis
     # toutes les interfaces réseau de la machine
-    app.run(host='0.0.0.0', port=5000)
+    app.run()
