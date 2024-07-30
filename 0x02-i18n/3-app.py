@@ -64,7 +64,7 @@ def index() -> str:
     """
     @app.route('/')
     def index():
-    
+
     Rend la page d'accueil.
 
     Retourne:
