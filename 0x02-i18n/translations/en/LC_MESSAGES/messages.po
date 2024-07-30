@@ -17,9 +17,10 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.14.0\n"
-
+# home title
 msgid "home_title"
 msgstr "Welcome to Holberton"
-
+# home header
 msgid "home_header"
 msgstr "Hello world!"
+
